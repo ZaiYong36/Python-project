@@ -442,7 +442,7 @@ def student():
         if codex == 2:
             with open("request.txt", "a") as rq:
                 subrequest = input("Please tell receptionist you want to change from what subject to what subject:")
-                request = name + "," + subrequest + "\n"
+                request = name + ";" + subrequest + "\n"
                 rq.write(request)
             rq.close()
             print("\nRequest sent\n")
