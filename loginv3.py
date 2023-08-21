@@ -18,45 +18,61 @@ def addacc(role):
         add.write(newacc)
 
 def admin():
-    print('Wlecome')
+    print('Welcome')
     print('What would you like to do ?\n1.View\n2.Edit\n3.Update self profile')
     funcadm = int(input('Please choose the function desired via the numbers given: '))
     if funcadm == 1:
         print('What item would you like to read ?\n1.Tutor\n2.Receptionist\n3.Tutor Monthly Income\n4.Back to Main Menu')
         funcadmv = int(input('Please enter the number of the item: '))
         if funcadmv == 1:
+            ttrexist = False
             while True:
-                with open('TtrLvlSject.txt', 'r') as vwttrlvlsject:
+                with open('tutorprof.txt', 'r') as vwttrlvlsject:
                     vwtline = vwttrlvlsject.readlines()
                     vwtr = input('Please enter the name of the tutor to be viewed :')
                     for line in vwtline:
                             if vwtr in line:
-                                print(line)
-                                vwttrlvlsject.close()
+                                vtitem = line.strip().split(",")
+                                print("Name :" , vtitem[0],'\nGender : ',vtitem[1],'\nDate of Birth :',vtitem[2],'\nEmail :',vtitem[3],'\nPhone Number :',vtitem[4],'\nSubject :',vtitem[5],'\nLevel :',vtitem[6])
+                                ttrexist = True
+                                break
+                    vwttrlvlsject.close()
+                if not ttrexist:
+                    print(f"Tutor'{vwtr}' not found.")
                 cvt = input('Would you like to continue viewing\nYes or No :')
                 if cvt.lower() == 'no':
                     admin()
         elif funcadmv == 2:
             while True:
-                with open('Receptionist.txt', 'r') as vwrcpt:
+                rcptnexist = False
+                with open('recpprof.txt', 'r') as vwrcpt:
                     vwrline = vwrcpt.readlines()
                     vwrp = input('Please enter the name of the receptionist you want to view :')
                     for line in vwrline:
                         if vwrp in line:
-                            print(line)
-                            vwrcpt.close()
+                            vritem = line.strip().split(',')
+                            print(f"Name :{vritem[0]}\nGender :{vritem[1]}\nDate of Birth :{vritem[2]}\nEmail :{vritem[3]}\nPhone Number :{vritem[4]}")
+                            rcptnexist = True
+                            break
+                    vwrcpt.close()
+                if not rcptnexist:
+                    print(f"Receptionist '{vwrp}' not found.")
                 cvr = input('Would you like to continue\nYes or No :')
                 if cvr.lower() == 'no':
                     admin()
         elif funcadmv == 3:
             while True:
-                with open('TtrLvlSject.txt', 'r') as ttrinc:
+                ttrincome = False
+                with open('tutorprof.txt', 'r') as ttrinc:
                     tinco = ttrinc.readlines()
                     vtinc = input('Please enter the name of the tutor\'s income you wish to see :')
                     for line in tinco:
                         tico = line.strip().split(',')
                         if vtinc in tico:
                             print(vtinc, '\'s monthly income : RM', int(tico[4])*5000)
+                            ttrincome = True
+                if not ttrincome:
+                    print(f'Tutor \'{vtinc}\' not found.')
                 cvti = input('Would you like to continue :\nYes or No :')
                 if cvti.lower() == 'no':
                     admin()
@@ -70,13 +86,15 @@ def admin():
             funcadm3 = int(input('Please enter the number of your choice: '))
             if funcadm3 == 1:
                 while True:
-                    with open('TtrLvlSject.txt', 'a') as tifo:
+                    with open('tutorprof.txt', 'a') as tifo:
                         tname = input('Please register your name: ')
-                        tphnum = int(input('Please register your phone number: '))
+                        tgender = input('Please register your gender :')
+                        tdob = input('Please register your date of birth(exp.01 January 2000) :')
                         tmail = input('Please register your email: ')
+                        tphnum = int(input('Please register your phone number: '))
                         sject = input('Please register your subject: ')
                         sjlvl = int(input("Please enter the subject's level: "))
-                        tfo = tname+','+str(tphnum) + ','+tmail + ',' + sject + ',' + str(sjlvl) + '\n'
+                        tfo = tname+','+tgender+tdob+','+','+tmail + ',' +str(tphnum)+','+ sject + ',' + str(sjlvl) + '\n'
                         tifo.write(tfo)
                         tifo.close()
                         print('New Tutor added')
@@ -85,11 +103,13 @@ def admin():
                             admin()
             elif funcadm3 == 2:
                 while True:
-                    with open('Receptionist.txt', 'a') as rifo:
+                    with open('recpprof.txt', 'a') as rifo:
                         rname = input('Please register your name: ')
-                        rphnum = int(input('Please register your phone number: '))
+                        rgender = input('Please register your gender :')
+                        rdob = input('Please register your date of birth(exp.01 January 2000) :')
                         rmail = input('Please register your email: ')
-                        rfo = rname+','+str(rphnum) + ','+rmail+'\n'
+                        rphnum = int(input('Please register your phone number: '))
+                        rfo = rname+','+rgender+','+rdob+','+rmail+','+str(rphnum)+'\n'
                         rifo.write(rfo)
                         rifo.close()
                         print('New Receptionist added')
@@ -104,9 +124,9 @@ def admin():
             if funcadmd == 1:
                 while True:
                     dttr = input('Please enter the name of the tutor to be deleted')
-                    with open('TtrLvlSject.txt', 'r') as radttrlvlsject:
+                    with open('tutorprof.txt', 'r') as radttrlvlsject:
                         rtline = radttrlvlsject.readlines()
-                        with open('TtrLvlSject.txt', 'w') as dltttr:
+                        with open('tutorprof.txt', 'w') as dltttr:
                             for line in rtline:
                                 if dttr in line:
                                     pass
@@ -119,9 +139,9 @@ def admin():
             if funcadmd == 2:
                 while True:
                     dtrecp = input('Please enter the name of the receptionist to be deleted')
-                    with open('Receptionist.txt', 'r') as radrecp:
+                    with open('recpprof.txt', 'r') as radrecp:
                         rrline = radrecp.readlines()
-                        with open('Receptionist.txt', 'w') as dltrec:
+                        with open('recpprof.txt', 'w') as dltrec:
                             for line in rrline:
                                 if dtrecp in line:
                                     pass
@@ -157,7 +177,7 @@ def admin():
             if calterpf.lower() == 'no':
                 admin()
 
-    admin()
+admin()
 
 
 
