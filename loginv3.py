@@ -287,7 +287,8 @@ def op5():
 
 
 #tutor("Lee", "lee345"),
-    #tutor("Leong", "leong345")
+#tutor("Leong", "leong345")
+# tutor Ahmed, Ahmed345
 def tutor():
     print("Welcome,", name)
     print("1. Add class information\n2. Update or delete class information\n3. View list of student according to subject\n4. Update profile")
@@ -301,12 +302,7 @@ def tutor():
                 sub = item[-1]
 
 
-    # Dictionary
-    tutorconversion = {
-        "Chinese": "classschedule.txt",
-        "English": "english_class.txt",
-        "Malay": "malay_class.txt"
-    }
+
 
     if codex == 1:
         with open("tutorprof.txt", "r") as read:
@@ -445,7 +441,8 @@ def student():
 
         if codex == 2:
             with open("request.txt", "a") as rq:
-                request = name + ",pending\n"
+                subrequest = input("Please tell receptionist you want to change from what subject to what subject:")
+                request = name + "," + subrequest + "\n"
                 rq.write(request)
             rq.close()
             print("\nRequest sent\n")
@@ -563,34 +560,6 @@ def student():
                                     rstu.write(line)
                             rstu.write(data)
 
-
-
-
-            #continue payment?
-            # choice = input("Do you wish to pay now?(yes/no)")
-            # if choice.lower() == "yes":
-
-
-
-
-
-
-            # # loop to detect
-            # fee = int(0)
-            # for item in ["Chinese", "Malay", "English"]:
-            #     fee = fee + int(calculate(item))
-            # #show amount due
-            # print(f"\nAmount due:{fee}\n")
-            #
-            # #payment
-            # from datetime import date
-            # choice = input("Do you want to pay now?(yes/no)")
-            # if choice == "yes":
-            #     amount = int(input("Please enter the amount you want to pay:"))
-            #     fee = fee - amount
-            #     with open("payment.txt", "a") as py:
-            #         payment = name + "," + str(amount) + "," + str(date.today()) + "\n"
-            #     print(f"\nAmount due:{fee}\n")
 
             print("\n")
 
