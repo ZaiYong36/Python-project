@@ -94,7 +94,7 @@ def admin():
                         tphnum = int(input('Please register your phone number: '))
                         sject = input('Please register your subject: ')
                         sjlvl = int(input("Please enter the subject's level: "))
-                        tfo = tname+','+tgender+tdob+','+','+tmail + ',' +str(tphnum)+','+ sject + ',' + str(sjlvl) + '\n'
+                        tfo = tname+','+tgender+','+tdob+','+tmail + ',' +str(tphnum)+','+ sject + ',' + str(sjlvl) + '\n'
                         tifo.write(tfo)
                         tifo.close()
                         print('New Tutor added')
@@ -138,7 +138,7 @@ def admin():
                         admin()
             if funcadmd == 2:
                 while True:
-                    dtrecp = input('Please enter the name of the receptionist to be deleted')
+                    dtrecp = input('Please enter the name of the receptionist to be deleted :')
                     with open('recpprof.txt', 'r') as radrecp:
                         rrline = radrecp.readlines()
                         with open('recpprof.txt', 'w') as dltrec:
