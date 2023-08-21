@@ -69,7 +69,7 @@ def admin():
                     for line in tinco:
                         tico = line.strip().split(',')
                         if vtinc in tico:
-                            print(vtinc, '\'s monthly income : RM', int(tico[4])*5000)
+                            print(vtinc, '\'s monthly income : RM', int(tico[6])*5000)
                             ttrincome = True
                 if not ttrincome:
                     print(f'Tutor \'{vtinc}\' not found.')
