@@ -381,7 +381,7 @@ def tutor():
                 if line.find(name) == 0:
                     item = line.strip().split(",")
                     print("Name:", item[0], "\nGender:", item[1], "\nDate of birth:", item[2], "\nEmail:", item[3],
-                          "\nContact number:", item[4] , "\nSubject:", item[5])
+                          "\nContact number:", item[4] , "\nSubject:", item[5], "\nLevel:", item[6])
 
                     # choice make
                     chc = input("Do you really want to make change?(yes/no)")
@@ -396,7 +396,7 @@ def tutor():
                         # append
                         with open("tutorprof.txt", "a") as mia:
                             new_prof = "\n" + input("Name:") + "," + input("Gender:") + "," + input(
-                                "Date of Birth:") + "," + input("Email address:") + "," + input("Phone number:") + "," + input("Subject:")
+                                "Date of Birth:") + "," + input("Email address:") + "," + input("Phone number:") + "," + input("Subject:") + "," + input("Level:")
                             mia.write(new_prof)
                         mia.close()
 
