@@ -166,7 +166,7 @@ def admin():
 def receptionist():
     print("Welcome to receptionist panel ! ", "\n1.Register and enroll student",
           "\n2.Update student subject enrollment", "\n3.Accept payment from student", "\n4.Delete student",
-          "\n5.Update profile", "\n6.Back to login")
+          "\n5.Update profile", "\n6.Check request ", "\n7.Back to login")
     o = input("Please enter the operation you want :")
     if o == "1":
         op1()
@@ -179,7 +179,9 @@ def receptionist():
     elif o == "5":
         op5()
     elif o == "6":
-        print("Back to login")
+        op6()
+    elif o == "7":
+        login()
 
 
 def op1():
@@ -275,6 +277,29 @@ def op5():
                     f.write(data)
                     print("replace text(", search_text, ",", replace_text, ")")
 
+    c = input("Back to receptionist panel ?(yes/no):")
+    if c == "yes":
+        receptionist()
+    else:
+        print("End of program.")
+
+def op6():
+    with open("request.txt", "r")as r:
+        for line in r:
+            item = line.strip().split(";")
+            print("Request from", item[0], ":", item[1])
+    op = input("which student you want to delete :")
+    try:
+        with open("request.txt", "r") as r:
+            lines = r.readlines()
+            with open("request.txt", "w") as r1:
+                for line in lines:
+# strip() is used to remove '\n' present at     the end of each line
+                    if line.find(op) == -1:
+                        r1.write(line)
+        print(op, "deleted successful.")
+    except op not in "request.txt":
+        print("Oops, something error!")
 
     c = input("Back to receptionist panel ?(yes/no):")
     if c == "yes":
