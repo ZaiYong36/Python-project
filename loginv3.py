@@ -220,7 +220,7 @@ def op1():
     if c == "yes":
         receptionist()
     else:
-        print("End of program.")
+        login()
 
 
 def op2():
@@ -244,7 +244,7 @@ def op2():
     if c == "yes":
         receptionist()
     else:
-        print("End of program.")
+        login()
 
 
 def op3():
@@ -255,6 +255,11 @@ def op3():
                 item = line.strip().split(",")
                 print("*****Payment receipt*****", "\nStudent name :", item[0], "\nAmount :", item[1], "\nDate :",
                       item[2])
+    c = input("Back to receptionist panel ?(yes/no):")
+    if c == "yes":
+        receptionist()
+    else:
+        login()
 
 
 def op4():
@@ -275,7 +280,7 @@ def op4():
     if c == "yes":
         receptionist()
     else:
-        print("End of program.")
+        login()
 
 
 
@@ -301,7 +306,7 @@ def op5():
     if c == "yes":
         receptionist()
     else:
-        print("End of program.")
+        login()
 
 def op6():
     with open("request.txt", "r")as r:
@@ -325,7 +330,7 @@ def op6():
     if c == "yes":
         receptionist()
     else:
-        print("End of program.")
+        login()
 
 
 
