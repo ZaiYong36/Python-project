@@ -6,228 +6,295 @@ def removeacc(target):
         lines = rmr.readlines()
         with open("login.txt", "w") as rmv:
             for line in lines:
-                if line.find(target) == -1:
+                item = line.strip().split(",")
+                if target != item[0]:
                     rmv.write(line)
 
-def addacc(role):
-    print("\nAdd new account\n")
-    username = input("Username:")
-    password = input("Password:")
+def addacc(username, password, role):
     with open("login.txt", "a") as add:
         newacc = username + "," + password + "," + role + "\n"
         add.write(newacc)
 
-def admin():
-    print('Welcome')
-    print('What would you like to do ?\n1.View\n2.Edit\n3.Update self profile')
-    funcadm = int(input('Please choose the function desired via the numbers given: '))
-    if funcadm == 1:
-        print('What item would you like to read ?\n1.Tutor\n2.Receptionist\n3.Tutor Monthly Income\n4.Back to Main Menu')
-        funcadmv = int(input('Please enter the number of the item: '))
-        if funcadmv == 1:
-            ttrexist = False
-            while True:
-                with open('tutorprof.txt', 'r') as vwttrlvlsject:
-                    vwtline = vwttrlvlsject.readlines()
-                    vwtr = input('Please enter the name of the tutor to be viewed :')
-                    for line in vwtline:
-                            if vwtr in line:
-                                vtitem = line.strip().split(",")
-                                print("Name :" , vtitem[0],'\nGender : ',vtitem[1],'\nDate of Birth :',vtitem[2],'\nEmail :',vtitem[3],'\nPhone Number :',vtitem[4],'\nSubject :',vtitem[5],'\nLevel :',vtitem[6])
-                                ttrexist = True
-                                break
-                    vwttrlvlsject.close()
-                if not ttrexist:
-                    print(f"Tutor'{vwtr}' not found.")
-                cvt = input('Would you like to continue viewing\nYes or No :')
-                if cvt.lower() == 'no':
-                    admin()
-        elif funcadmv == 2:
-            while True:
-                rcptnexist = False
-                with open('recpprof.txt', 'r') as vwrcpt:
-                    vwrline = vwrcpt.readlines()
-                    vwrp = input('Please enter the name of the receptionist you want to view :')
-                    for line in vwrline:
-                        if vwrp in line:
-                            vritem = line.strip().split(',')
-                            print(f"Name :{vritem[0]}\nGender :{vritem[1]}\nDate of Birth :{vritem[2]}\nEmail :{vritem[3]}\nPhone Number :{vritem[4]}")
-                            rcptnexist = True
-                            break
-                    vwrcpt.close()
-                if not rcptnexist:
-                    print(f"Receptionist '{vwrp}' not found.")
-                cvr = input('Would you like to continue\nYes or No :')
-                if cvr.lower() == 'no':
-                    admin()
-        elif funcadmv == 3:
-            while True:
-                ttrincome = False
-                with open('tutorprof.txt', 'r') as ttrinc:
-                    tinco = ttrinc.readlines()
-                    vtinc = input('Please enter the name of the tutor\'s income you wish to see :')
-                    for line in tinco:
-                        tico = line.strip().split(',')
-                        if vtinc in tico:
-                            print(vtinc, '\'s monthly income : RM', int(tico[6])*5000)
-                            ttrincome = True
-                if not ttrincome:
-                    print(f'Tutor \'{vtinc}\' not found.')
-                cvti = input('Would you like to continue :\nYes or No :')
-                if cvti.lower() == 'no':
-                    admin()
-        elif funcadmv == 4:
-            admin()
-    elif funcadm == 2:
-        print('Would you like to edit:\n1.Register\n2.Delete\n3.Back to Main Menu')
-        funcadme = int(input('Please enter the funtion you would like to proceed with: '))
-        if funcadme == 1:
-            print('Would you like to register:\n1.Tutor\n2.Receptionist\n3.Back to Main Menu')
-            funcadm3 = int(input('Please enter the number of your choice: '))
-            if funcadm3 == 1:
-                while True:
-                    with open('tutorprof.txt', 'a') as tifo:
-                        tname = input('Please register your name: ')
-                        tgender = input('Please register your gender :')
-                        tdob = input('Please register your date of birth(exp.01 January 2000) :')
-                        tmail = input('Please register your email: ')
-                        tphnum = int(input('Please register your phone number: '))
-                        sject = input('Please register your subject: ')
-                        sjlvl = int(input("Please enter the subject's level: "))
-                        tfo = tname+','+tgender+','+tdob+','+tmail + ',' +str(tphnum)+','+ sject + ',' + str(sjlvl) + '\n'
-                        tifo.write(tfo)
-                        tifo.close()
-                        print('New Tutor added')
-                        cat = input('Would you like to continue ?\nYes or No :')
-                        if cat.lower() == 'no':
-                            admin()
-            elif funcadm3 == 2:
-                while True:
-                    with open('recpprof.txt', 'a') as rifo:
-                        rname = input('Please register your name: ')
-                        rgender = input('Please register your gender :')
-                        rdob = input('Please register your date of birth(exp.01 January 2000) :')
-                        rmail = input('Please register your email: ')
-                        rphnum = int(input('Please register your phone number: '))
-                        rfo = rname+','+rgender+','+rdob+','+rmail+','+str(rphnum)+'\n'
-                        rifo.write(rfo)
-                        rifo.close()
-                        print('New Receptionist added')
-                        car = input('Would you like to continue ?\nYes or No :')
-                        if car.lower() == 'no':
-                            admin()
-            elif funcadm3 == 3:
-                admin()
-        elif funcadme == 2:
-            print('Which category would you like to delete an item in :\n1.Tutor\n2.Receptionist\n3.Back to Main Menu')
-            funcadmd = int(input('Please enter the number of the option :'))
-            if funcadmd == 1:
-                while True:
-                    dttr = input('Please enter the name of the tutor to be deleted')
-                    with open('tutorprof.txt', 'r') as radttrlvlsject:
-                        rtline = radttrlvlsject.readlines()
-                        with open('tutorprof.txt', 'w') as dltttr:
-                            for line in rtline:
-                                if dttr in line:
-                                    pass
-                                else:
-                                    dltttr.write(line)
-                            print(dttr, 'Deleted')
-                    cdltttr = input('Would you like to continue deleting tutor :\nYes or No :')
-                    if cdltttr.lower() == 'no':
-                        admin()
-            if funcadmd == 2:
-                while True:
-                    dtrecp = input('Please enter the name of the receptionist to be deleted :')
-                    with open('recpprof.txt', 'r') as radrecp:
-                        rrline = radrecp.readlines()
-                        with open('recpprof.txt', 'w') as dltrec:
-                            for line in rrline:
-                                if dtrecp in line:
-                                    pass
-                                else:
-                                    dltrec.write(line)
-                            print(dtrecp, 'Deleted')
-                    cdltrec = input('Would you like to continue deleting receptionist ?\nYes or No :')
-                    if cdltrec.lower() == 'no':
-                        admin()
-            elif funcadmd == 3:
-                admin()
-        elif funcadme ==3:
-            admin()
-    elif funcadm == 3:
-        while True:
-            with open ('adm.txt','r') as admchce:
-                rdadmline = admchce.readlines()
-            updtadm = input('Please enter the name of the admin\'s profile to be updated :')
-            with open('adm.txt','w') as altadmpf:
-                for line in rdadmline:
-                    if updtadm in line:
-                        nadmnm = input('Please enter your name :')
-                        nadmgdr = input('Please enter your gender :')
-                        nadmdob = input('Please enter your date of birth with the following format(01 January 2000) :')
-                        nadmem = input('Please enter your email :')
-                        nadmphnum = input('Please enter your phone number')
-                        nadmadrs = input('Please enter your address :')
-                        nwadm = f"{nadmnm},{nadmgdr},{nadmdob},{nadmem},{nadmphnum},{nadmadrs}"
-                        altadmpf.write(nwadm+'\n')
-                    else:
-                        altadmpf.write(line)
-            calterpf = input('Would you like to continue making changes in admin profile ?\nYes or no')
-            if calterpf.lower() == 'no':
-                admin()
+#check variable can be integer or not
+def check_int(variable,ques):
+    try:
+        variable = int(input(ques))
+        return variable
+    except:
+        print("\n------------------------\nError input.\n------------------------")
 
-admin()
+def admin(name):
+    while True:
+        print('---------------------------------------\nWelcome,' , name)
+        print('---------------------------------------\nWhat would you like to do ?\n1.View\n2.Edit\n3.Update self profile\n4.Log out')
+        funcadm = ""
+        funcadm = check_int(funcadm,'Please choose the function desired via the numbers given: ')
+
+        if funcadm == 1:
+            while True:
+                print('-----------------------------------\nWhat item would you like to read ?\n1.Tutor\n2.Receptionist\n3.Tutor Monthly Income\n4.Back to Main Menu')
+                funcadmv = ""
+                funcadmv = check_int(funcadmv, 'Please enter the number of the item: ')
+
+                if funcadmv == 1:
+                    while True:
+                        with open('tutorprof.txt', 'r') as vwttrlvlsject:
+                            vwtline = vwttrlvlsject.readlines()
+                            for line in vwtline:
+                                try:
+                                    item = line.strip().split(",")
+                                    tutor_info = "Name :"  + item[0] + '\nGender : ' +  item[1]  + '\nDate of Birth :' + item[2] + '\nEmail :' + item[3] + '\nPhone Number :' + item[4] + '\nSubject :' + item[5] + '\nLevel :' + item[6] + '\n------------------------------'
+                                    print(tutor_info)
+                                except:
+                                    pass
+                        cvt = input('Would you like to continue viewing\nYes or No :')
+                        if cvt.lower() == 'no':
+                            break
+                    admin(name)
+
+                elif funcadmv == 2:
+                    while True:
+                        with open('recpprof.txt', 'r') as vwrcpt:
+                            vwrline = vwrcpt.readlines()
+                            for line in vwrline:
+                                try:
+                                    vritem = line.strip().split(",")
+                                    print(f"Name :{vritem[0]}\nGender :{vritem[1]}\nDate of Birth :{vritem[2]}\nEmail :{vritem[3]}\nPhone Number :{vritem[4]}\n------------------------------")
+                                except:
+                                    pass
+                        cvr = input('Would you like to continue\nYes or No :')
+                        if cvr.lower() == 'no':
+                            break
+                    admin(name)
+
+                elif funcadmv == 3:
+                    while True:
+                        with open('tutorprof.txt', 'r') as ttrinc:
+                            tinco = ttrinc.readlines()
+                            for line in tinco:
+                                try:
+                                    tico = line.strip().split(',')
+                                    print(tico[0], '\'s monthly income : RM', int(tico[6])*1000, "\n---------------------------------------------")
+                                except:
+                                    pass
+                        cvti = input('Would you like to continue :\nYes or No :')
+                        if cvti.lower() == 'no':
+                            break
+                    admin(name)
+                elif funcadmv == 4:
+                    break
+        elif funcadm == 2:
+            print('---------------------------------\nWould you like to edit:\n1.Register\n2.Delete\n3.Back to Main Menu')
+            funcadme = ""
+            funcadme = check_int(funcadme, 'Please enter the number of the item: ')
+
+            #register
+            if funcadme == 1:
+                print('---------------------------------------------\nWould you like to register:\n1.Tutor\n2.Receptionist\n3.Back to Main Menu')
+                funcadm3 = ""
+                funcadm3 = check_int(funcadm3, 'Please enter the number of your choice: ')
+
+                if funcadm3 == 1:
+                    while True:
+                        with open('tutorprof.txt', 'a') as tifo:
+                            tname = input('Please register his/her name: ')
+                            passw = input('Please enter password for account:')
+                            #Data validations
+                            while True:
+                                try:
+                                    tphnum = int(input('Please register your phone number: '))
+                                    break
+                                except:
+                                    print("Incorrect data input.")
+                            while True:
+                                try:
+                                    sjlvl = int(input("Please enter the subject's level: "))
+                                    break
+                                except:
+                                    print("Incorrect data input.")
+
+                            tmail = input('Please register your email: ')
+                            sject = input('Please register your subject: ').lower()
+                            tfo = tname+','+str(tphnum) + ','+tmail + ',' + sject + ',' + str(sjlvl) + '\n'
+                            tifo.write(tfo)
+                            tifo.close()
+
+                            # add account for new tutor
+                            addacc(tname,passw,"tutor")
+
+                            print('New Tutor added')
+                            cat = input('Would you like to continue ?\nYes or No :')
+                            if cat.lower() == 'no':
+                                break
+                    admin(name)
+                elif funcadm3 == 2:
+                    while True:
+                        with open('recpprof.txt', 'a') as rifo:
+                            rname = input('Please register your name: ')
+                            passw = input('Please enter password for account:')
+                            while True:
+                                try:
+                                    rphnum = int(input('Please register your phone number: '))
+                                    break
+                                except:
+                                    print("Incorrect data input.")
+                            rmail = input('Please register your email: ')
+                            rfo = rname+','+str(rphnum) + ','+rmail+'\n'
+                            rifo.write(rfo)
+                            rifo.close()
+
+                            # add account for new receptionist
+                            addacc(rname, passw, "receptionist")
+
+                            print('New Receptionist added')
+                            car = input('Would you like to continue ?\nYes or No :')
+                            if car.lower() == 'no':
+                                admin(name)
+                elif funcadm3 == 3:
+                    admin(name)
+
+            #delete
+            elif funcadme == 2:
+                print('Which category would you like to delete an item in :\n1.Tutor\n2.Receptionist\n3.Back to Main Menu')
+                funcadmd = int(input('Please enter the number of the option :'))
+
+                if funcadmd == 1:
+                    while True:
+                        dttr = input('Please enter the name of the tutor to be deleted')
+                        with open('tutorprof.txt', 'r') as radttrlvlsject:
+                            rtline = radttrlvlsject.readlines()
+                            with open('tutorprof.txt', 'w') as dltttr:
+                                for line in rtline:
+                                    if dttr in line:
+                                        pass
+                                    else:
+                                        dltttr.write(line)
+
+                                #remove account
+                                removeacc(dttr)
+                                print(dttr, 'Deleted')
+                        cdltttr = input('Would you like to continue deleting tutor :\nYes or No :')
+                        if cdltttr.lower() == 'no':
+                            admin(name)
+                if funcadmd == 2:
+                    while True:
+                        dtrecp = input('Please enter the name of the receptionist to be deleted')
+                        with open('Receptionist.txt', 'r') as radrecp:
+                            rrline = radrecp.readlines()
+                            with open('Receptionist.txt', 'w') as dltrec:
+                                for line in rrline:
+                                    if dtrecp in line:
+                                        pass
+                                    else:
+                                        dltrec.write(line)
+                                #remove account
+                                removeacc(dtrecp)
+                                print(dtrecp, 'Deleted')
+                        cdltrec = input('Would you like to continue deleting receptionist ?\nYes or No :')
+                        if cdltrec.lower() == 'no':
+                            admin(name)
+                elif funcadmd == 3:
+                    admin(name)
+            elif funcadme ==3:
+                admin(name)
+        elif funcadm == 3:
+            while True:
+                with open("adminprof.txt", "r") as read:
+                    for line in read:
+                        if name in line:
+                            try:
+                                item = line.strip().split(",")
+                                print("----------------------------------------------\nName:", item[0], "\nDate of Birth:", item[1], "\nEmail:", item[2],
+                                      "\nPhone number:", item[3])
+                            except:
+                                pass
+
+                # choice make
+                chc = input("Do you really want to make change?(yes/no)")
+                if chc == "no":
+                    break
+                if chc == "yes":
+                    with open ('adminprof.txt','r') as admchce:
+                        rdadmline = admchce.readlines()
+                    with open('adminprof.txt','w') as altadmpf:
+                        for line in rdadmline:
+                            if name in line:
+                                nadmnm = input('Please enter your name :')
+                                nadmgdr = input('Please enter your gender :')
+                                nadmdob = input('Please enter your date of birth with the following format(01 January 2000) :')
+                                nadmem = input('Please enter your email :')
+                                nadmphnum = input('Please enter your phone number')
+                                nwadm = f"{nadmnm},{nadmgdr},{nadmdob},{nadmem},{nadmphnum}"
+                                altadmpf.write(nwadm+'\n')
+                            else:
+                                altadmpf.write(line)
+                calterpf = input('Would you like to continue making changes in admin profile ?\nYes or no')
+                if calterpf.lower() == 'no':
+                    break
+            admin(name)
+        elif funcadm == 4:
+            break
+    login()
 
 
 
 #("Ali", "ali345")
 #("Egg", "egg345")
-def receptionist():
-    print("Welcome to receptionist panel ! ", "\n1.Register and enroll student",
+def receptionist(name):
+    print("------------------------------------------\nHello," , name , "\nWelcome to receptionist panel!\n-----------------------------------------\nWhat would you like to do?\n1.Register and enroll student",
           "\n2.Update student subject enrollment", "\n3.Accept payment from student", "\n4.Delete student",
           "\n5.Update profile", "\n6.Check request ", "\n7.Back to login")
     o = input("Please enter the operation you want :")
     if o == "1":
-        op1()
+        op1(name)
     elif o == "2":
-        op2()
+        op2(name)
     elif o == "3":
-        op3()
+        op3(name)
     elif o == "4":
-        op4()
+        op4(name)
     elif o == "5":
-        op5()
+        op5(name)
     elif o == "6":
-        op6()
+        op6(name)
     elif o == "7":
         login()
+    else:
+        receptionist(name)
 
 
-def op1():
+def op1(name):
     print("Insert student information")
     with open("rstudent.txt", "a") as r:
-        stu_in = input("Enter student name :") + ";" + input("Enter student IC :") + ";" + input(
+        username = input("Enter student name :")
+        stu_in = username + ";" + input("Enter student IC :") + ";" + input(
             "Enter student email address :") + ";" + input("Enter student contact number :") + ";" + input(
             "Enter student address :") + ";" + input("Enter student level :") + ";" + input(
             "Enter student subject 1 (type none1 if no subject):") + ";" + input(
             "Enter student subject 2 (type none2 if no subject):") + ";" + input(
-            "Enter student subject 3 (type none3 if no subject):") + ";" + input("Enter month of enrollment :") + "\n"
+            "Enter student subject 3 (type none3 if no subject):") + ";" + input("Enter month of enrollment :") + ";unpaid;0\n"
         r.write(stu_in)
     r.close()
+    passw = input("Please enter password for account creation:")
+    addacc(username,passw,"student")
     print("Registered successful.")
-    c = input("Back to receptionist panel ?(yes/no):")
+    c = input("Back to receptionist panel ?(yes/no):").lower()
     if c == "yes":
-        receptionist()
+        receptionist(name)
     else:
-        login()
+        op1(name)
 
 
-def op2():
-    op = input("Enter name :")
+def op2(name):
     with open("rstudent.txt", "r") as r:
         for line in r:
-            if op in line:
+            item = line.strip().split(";")
+            print(item[0])
+    op = input("Please enter name of the student:")
+    with open("rstudent.txt", "r") as r:
+        for line in r:
+            item = line.strip().split(";")
+            if op == item[0]:
                 item = line.strip().split(";")
                 print("Subject are :", item[6], item[7], item[8])
                 search_text = input("Which subject you want to change :")
@@ -239,59 +306,89 @@ def op2():
                 # Writing the replaced data in our text file
                 with open("rstudent.txt", "w") as f:
                     f.write(data)
-                    print("replace text(", search_text, ",", replace_text, ")")
-    c = input("Back to receptionist panel ?(yes/no):")
+                    print("replace text(", search_text, "to ", replace_text, ")")
+    c = input("Back to receptionist panel ?(yes/no):").lower()
     if c == "yes":
-        receptionist()
+        receptionist(name)
     else:
-        login()
+        op2(name)
 
 
-def op3():
-    op = input("Enter name :")
+def op3(name):
+    with open("payment.txt", "r") as r:
+        for line in r:
+            item = line.strip().split(",")
+            print("Payment from", item[0])
+    op = input("Enter name you want to generate receopt:")
     with open("payment.txt", "r") as r:
         for line in r:
             if op in line:
                 item = line.strip().split(",")
                 print("*****Payment receipt*****", "\nStudent name :", item[0], "\nAmount :", item[1], "\nDate :",
                       item[2])
-    c = input("Back to receptionist panel ?(yes/no):")
+    #delete payment record option
+    delete = input("Do you want to delete this payment record?(yes/no)").lower()
+    if delete == "yes":
+        try:
+            with open("payment.txt", "r") as r:
+                lines = r.readlines()
+
+                with open("payment.txt", "w") as r1:
+                    for line in lines:
+                        # strip() is used to remove '\n' present at the end of each line
+                        if line.find(op) == -1:
+                            r1.write(line)
+                    print(op, "deleted successful.")
+        except:
+            print("Oops, something error!")
+
+    #back to receptionist
+    c = input("Back to receptionist panel ?(yes/no):").lower()
     if c == "yes":
-        receptionist()
+        receptionist(name)
     else:
-        login()
+        op3(name)
 
 
-def op4():
-    op = input("Enter student name :")
+def op4(name):
+    with open("rstudent.txt", "r") as r:
+        for line in r:
+            item = line.strip().split(";")
+            print(item[0])
+    op = input("Enter student name that you want to delete:")
     try:
-        with open("recpprof.txt", "r") as r:
+        with open("rstudent.txt", "r") as r:
             lines = r.readlines()
-            with open("recpprof.txt", "w") as r1:
+
+            with open("rstudent.txt", "w") as r1:
                 for line in lines:
+                    item = line.strip().split(";")
                     # strip() is used to remove '\n' present at the end of each line
-                    if line.find(op) == -1:
+                    if op != item[0]:
                         r1.write(line)
-        print(op, "deleted successful.")
-    except op not in "recpprof.txt":
+
+            print(op, "deleted successful.")
+    except:
         print("Oops, something error!")
+    # remove student account
+    removeacc(op)
 
-    c = input("Back to receptionist panel ?(yes/no):")
+    c = input("Back to receptionist panel ?(yes/no):").lower
     if c == "yes":
-        receptionist()
+        receptionist(name)
     else:
-        login()
+        op4(name)
 
 
 
-def op5():
-    op = input("Enter name :")
+def op5(name):
+    op = name
     with open("recpprof.txt", "r") as r:
         for line in r:
             if op in line:
                 item = line.strip().split(",")
                 print("Name :", item[0],"\nGender :", item[1],"\nDate of birth :", item[2],"\nEmail :", item[3],"\nIc number :", item[4])
-                search_text = input("Enter the part which you want to change :")
+                search_text = input("Enter the part which you want to change(enter the data in the field):")
                 replace_text = input("Replace with :")
                 with open("recpprof.txt", "r") as file:
                     data = file.read()
@@ -300,38 +397,42 @@ def op5():
                 # Writing the replaced data in our text file
                 with open("recpprof.txt", "w") as f:
                     f.write(data)
-                    print("replace text(", search_text, ",", replace_text, ")")
+                    print("Replaced text from ", search_text, "to", replace_text)
 
-    c = input("Back to receptionist panel ?(yes/no):")
+    c = input("Back to receptionist panel ?(yes/no):").lower()
     if c == "yes":
-        receptionist()
+        receptionist(name)
     else:
-        login()
+        op5(name)
 
-def op6():
+def op6(name):
     with open("request.txt", "r")as r:
         for line in r:
-            item = line.strip().split(";")
-            print("Request from", item[0], ":", item[1])
+            try:
+                item = line.strip().split(";")
+                print("Request from", item[0], ":", item[1])
+            except:
+                pass
     op = input("which student you want to delete :")
     try:
         with open("request.txt", "r") as r:
             lines = r.readlines()
             with open("request.txt", "w") as r1:
                 for line in lines:
+                    item = line.strip().split(";")
 # strip() is used to remove '\n' present at     the end of each line
-                    if line.find(op) == -1:
+                    if op != item[0]:
                         r1.write(line)
         print(op, "deleted successful.")
-    except op not in "request.txt":
+
+    except:
         print("Oops, something error!")
 
-    c = input("Back to receptionist panel ?(yes/no):")
+    c = input("Back to receptionist panel ?(yes/no):").lower()
     if c == "yes":
-        receptionist()
+        receptionist(name)
     else:
-        login()
-
+        op6(name)
 
 
 
