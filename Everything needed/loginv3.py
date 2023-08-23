@@ -23,10 +23,13 @@ def check_int(variable,ques):
     except:
         print("\n------------------------\nError input.\n------------------------")
 
+def welcome(name):
+    print('---------------------------------------\nWelcome,', name, "\n---------------------------------------")
+
 def admin(name):
     while True:
-        print('---------------------------------------\nWelcome,' , name)
-        print('---------------------------------------\nWhat would you like to do ?\n1.View\n2.Edit\n3.Update self profile\n4.Log out')
+        welcome(name)
+        print('What would you like to do ?\n1.View\n2.Edit\n3.Update self profile\n4.Log out')
         funcadm = ""
         funcadm = check_int(funcadm,'Please choose the function desired via the numbers given: ')
 
@@ -241,7 +244,8 @@ def admin(name):
 #("Ali", "ali345")
 #("Egg", "egg345")
 def receptionist(name):
-    print("------------------------------------------\nHello," , name , "\nWelcome to receptionist panel!\n-----------------------------------------\nWhat would you like to do?\n1.Register and enroll student",
+    welcome(name)
+    print("Welcome to receptionist panel!\n-----------------------------------------\nWhat would you like to do?\n1.Register and enroll student",
           "\n2.Update student subject enrollment", "\n3.Accept payment from student", "\n4.Delete student",
           "\n5.Update profile", "\n6.Check request ", "\n7.Back to login")
     o = input("Please enter the operation you want :")
@@ -437,23 +441,21 @@ def op6(name):
 
 
 
+
 #tutor("Lee", "lee345"),
-#tutor("Leong", "leong345")
-# tutor Ahmed, Ahmed345
-def tutor():
-    print("Welcome,", name)
+    #tutor("Leong", "leong345")
+def tutor(name):
+    welcome(name)
     print("1. Add class information\n2. Update or delete class information\n3. View list of student according to subject\n4. Update profile")
-    codex = int(input("Please choose option by using number:"))
+    codex = ""
+    codex = check_int(codex,"Please choose option by using number:")
     #record subject for tutor
     with open("tutorprof.txt", "r") as read:
         lines = read.readlines()
         for line in lines:
             if name in line:
                 item = line.strip().split(",")
-                sub = item[-1]
-
-
-
+                sub = item[-2]
 
     if codex == 1:
         with open("tutorprof.txt", "r") as read:
@@ -465,8 +467,8 @@ def tutor():
                         #allow teacher to add class information
                         print("\n\nPlease enter following information")
                         with open("classschedule.txt", "a") as admin_prof:
-                            new_sub = input("Subject_name:") + "," + input("Charge:") + "," + input(
-                                "Class_schedule(day and time):") + "\n"
+                            new_sub = input("Subject_name:").capitalize() + "," + input("Charge:") + "," + input(
+                                "Please enter class_schedule in this format(wed 6.00pm-7.00pm):").lower() + "," + input("Subject level:") + "\n"
                             admin_prof.write(new_sub)
                         admin_prof.close()
 
@@ -475,45 +477,73 @@ def tutor():
                         if cont == "no":
                             break
     if codex == 2:
-        while True:
+        code = ""
+        code = check_int(code,"----------------------------------------\n1.Update class information\n2.Delete class information\nPlease choose the operation by using number:")
+        if code == 1:
+            while True:
 
-            # show schedule
-            print("Schedule:")
-            with open("classschedule.txt", 'r') as fr:
-                # reading line by line
-                lines = fr.readlines()
-                for line in lines:
-                    item = line.strip().split(",")
-                    if sub in line:
-                        print(item[-1])
+                # show schedule
+                print("Schedule and level:")
+                with open("classschedule.txt", 'r') as fr:
+                    # reading line by line
+                    lines = fr.readlines()
+                    for line in lines:
+                        item = line.strip().split(",")
+                        if sub in line:
+                            print(item[-2] + "," + item[-1])
 
-            #replace  time
-            timi = input("Please enter day and time you want to change:")
-            new_timi = input("Please enter new day and time:")
-            with open("classschedule.txt", "r") as file:
-                data = file.read()
-                data = data.replace(timi, new_timi)
-            # Opening our text file in read only mode using the open() function
-            # Writing the replaced data in our text file
-            with open("classschedule.txt", "w") as f:
-                f.write(data)
-                print("Replaced time successfully!")
+                #replace  time
+                timi = input("Please enter day and time you want to change:")
+                new_timi = input("Please enter new day and time:")
+                with open("classschedule.txt", "r") as file:
+                    data = file.read()
+                    data = data.replace(timi, new_timi)
+                # Opening our text file in read only mode using the open() function
+                # Writing the replaced data in our text file
+                with open("classschedule.txt", "w") as f:
+                    f.write(data)
+                    print("Replaced time successfully!")
 
 
-            cont = input("Do you wish to continue modify?(yes/no)")
-            if cont == "no":
-                break
+                cont = input("Do you wish to continue modify?(yes/no)")
+                if cont == "no":
+                    break
+
+        if code == 2:
+            while True:
+                # show schedule
+                print("Schedule and level:")
+                with open("classschedule.txt", 'r') as fr:
+                    # reading line by line
+                    lines = fr.readlines()
+                    for line in lines:
+                        item = line.strip().split(",")
+                        if sub in line:
+                            print(item[-2] + "," + item[-1])
+
+                # replace  time
+                timi = input("Please enter the schedule you want to delete:")
+                with open("classschedule.txt", "r") as file:
+                    lines = file.readlines()
+
+                    with open("classschedule.txt", "w") as f:
+                        for line in lines:
+                            if timi not in line:
+                                f.write(line)
+                    print("Deleted schedule successfully!")
+
+                cont = input("Do you wish to continue delete?(yes/no)")
+                if cont == "no":
+                    break
 
     if codex == 3:
         #show all student in his or her subject
-        print(sub)
         print("Students:")
         with open("rstudent.txt","r") as rstudent:
             for line in rstudent:
                 if sub in line:
                     item = line.strip().split(";")
                     print(item[0])
-        print("\n")
 
     if codex == 4:
 
@@ -527,7 +557,7 @@ def tutor():
             for line in lines:
                 if line.find(name) == 0:
                     item = line.strip().split(",")
-                    print("Name:", item[0], "\nGender:", item[1], "\nDate of birth:", item[2], "\nEmail:", item[3],
+                    print("Profile:\nName:", item[0], "\nGender:", item[1], "\nDate of birth:", item[2], "\nEmail:", item[3],
                           "\nContact number:", item[4] , "\nSubject:", item[5], "\nLevel:", item[6])
 
                     # choice make
@@ -539,30 +569,30 @@ def tutor():
                             for line in lines:
                                 if line.find(name) == -1:
                                     miw.write(line)
+                                elif name in line:
+                                    new_prof = input("Name:") + "," + input("Gender:") + "," + input(
+                                        "Date of Birth:") + "," + input("Email address:") + "," + input(
+                                        "Phone number:") + "," + input("Subject:") + "," + input("Level:") + "\n"
+                                    miw.write(new_prof)
                             miw.close()
-                        # append
-                        with open("tutorprof.txt", "a") as mia:
-                            new_prof = "\n" + input("Name:") + "," + input("Gender:") + "," + input(
-                                "Date of Birth:") + "," + input("Email address:") + "," + input("Phone number:") + "," + input("Subject:") + "," + input("Level:")
-                            mia.write(new_prof)
-                        mia.close()
 
                         cont = input("Do you wish to continue modify?(yes/no)")
                         if cont == "no":
                             break
 
 
-    tutor()
+    tutor(name)
 
 
 # Amir,amir345,student
 # Aik,aik345,student
-def student():
+def student(name):
     while True:
-        print("Welcome, ", name)
-        codex = int(input("1. View schedule\n2. Send change subject enrollment request\n3. Delete change subject enrollment request\n4. View payment due\n5. Update profile\nPlease enter the option you want by using number:"))
-
+        welcome(name)
+        codex = ""
+        codex = check_int(codex,"1. View schedule\n2. Send change subject enrollment request\n3. Delete change subject enrollment request\n4. View payment due\n5. Update profile\nPlease enter the option you want by using number:")
         if codex == 1:
+            print("Schedule:")
             # print table function
             def print_schedule(subject):
                 with open("classschedule.txt", "r") as read:
@@ -592,8 +622,7 @@ def student():
 
         if codex == 2:
             with open("request.txt", "a") as rq:
-                subrequest = input("Please tell receptionist you want to change from what subject to what subject:")
-                request = name + ";" + subrequest + "\n"
+                request = name + ",pending\n"
                 rq.write(request)
             rq.close()
             print("\nRequest sent\n")
@@ -711,7 +740,6 @@ def student():
                                     rstu.write(line)
                             rstu.write(data)
 
-
             print("\n")
 
         if codex == 5:
@@ -721,10 +749,13 @@ def student():
                 lines = mir.readlines()
                 for line in lines:
                     if line.find(name) == 0:
-                        item = line.strip().split("-")
-                        print("Name:", item[0], "\nIC/Passport number:", item[1], "\nEmail:", item[2],
-                              "\nPhone number:", item[3],
-                              "\nAddress:", item[4])
+                        try:
+                            item = line.strip().split("-")
+                            print("Name:", item[0], "\nIC/Passport number:", item[1], "\nEmail:", item[2],
+                                  "\nPhone number:", item[3],
+                                  "\nAddress:", item[4])
+                        except:
+                            pass
 
                         # choice make
                         chc = input("Do you really want to make change?(yes/no)")
@@ -733,56 +764,50 @@ def student():
                         if chc == "yes":
                             with open("studentprof.txt", "w") as miw:
                                 for line in lines:
-                                    if line.find(name) == -1:
+                                    if name in line:
+                                        new_prof = input("Name:") + "," + input(
+                                            "IC/Passport number:") + "," + input(
+                                            "Email:") + "," + input("Phone number:") + "," + input("Address:") + "\n"
+                                        miw.write(new_prof)
+                                    else:
                                         miw.write(line)
-                                miw.close()
-                            # append
-                            with open("studentprof.txt", "a") as mia:
-                                new_prof = "\n" + input("Name:") + "," + input("IC/Passport number:") + "," + input(
-                                    "Email:") + "," + input("Phone number:") + "," + input("Address:")
-                                mia.write(new_prof)
-                            mia.close()
 
-                            cont = input("Do you wish to continue modify?(yes/no)")
+
+                            cont = input("Do you wish to continue modify?(yes/no)").lower()
                             if cont == "no":
                                 break
                 mir.close()
             print("\n")
 
 
-# attempt loop and login
-count = 3
-while count > 0:
-    name = input("Please enter your name:")
-    pw = input("Please enter password:")
-    with open("login.txt", "r") as lg:
-        lines = lg.readlines()
-        for line in lines:
-            nm, passw, role = line.strip().split(",")
-            if name == nm and pw == passw and role == "admin":
-                lg.close()
-                admin()
-                count = 4
-            elif name == nm and pw == passw and role == "receptionist":
-                lg.close()
-                receptionist()
-                count = 4
-            elif name == nm and pw == passw and role == "tutor":
-                lg.close()
-                tutor()
-                count = 4
-            elif name == nm and pw == passw and role == "student":
-                lg.close()
-                student()
-                count = 4
-    count = count - 1
-    print("Current attempts left:", count)
 
-if count == 0:
+
+def login():
+    count = 3
+    while count > 0:
+        print("-----------------------------------\n            Login page        \n-----------------------------------")
+        name = input("Please enter your name:")
+        pw = input("Please enter password:")
+        with open("login.txt", "r") as lg:
+            for line in lg:
+                nm, passw, role = line.strip().split(",")
+                if name == nm and pw == passw and role == "admin":
+                    admin(name)
+
+                elif name == nm and pw == passw and role == "receptionist":
+                    receptionist(name)
+
+                elif name == nm and pw == passw and role == "tutor":
+                    tutor(name)
+
+                elif name == nm and pw == passw and role == "student":
+                    student(name)
+
+        count -= 1
+        print("Current attempts left:", count)
     print("Please rerun this program to get more attempts :)")
-
-
-
+    exit()
+login()
 
 
 
