@@ -1,0 +1,12 @@
+Jane,jane345,admin
+Bob,bob123,admin
+Ali,ali345,receptionist
+Egg,egg345,receptionist
+Lee,lee345,tutor
+Leong,leong345,tutor
+Ahmed,ahmed345,tutor
+Muhammad Amir Yong,amir345,student
+Tan Aik Bah,aik345,student
+Muhammed Akau,akau345,student
+Pang Zai Yong,yong345,student
+Pang Zai Jei,jei345,student

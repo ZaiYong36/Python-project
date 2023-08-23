@@ -1,0 +1,3 @@
+Leong,Male,20 July 1999,leong@gmail.com,0123482910,English,4
+Lee Aik Goh,Male,30 August 2000,lee@hotmail.com,0162739210,Chinese,3
+Muhammed Ahmed,Male,30 March 1996,ahmed@gmail.com,01829340192,Malay,5
