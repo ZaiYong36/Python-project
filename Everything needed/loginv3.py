@@ -1,4 +1,4 @@
-import datetime
+from datetime import date
 
 #All important commands
 def removeacc(target):
@@ -26,6 +26,9 @@ def check_int(variable,ques):
 def welcome(name):
     print('---------------------------------------\nWelcome,', name, "\n---------------------------------------")
 
+#login credential:
+#Bob,bob123
+#Jane,Jane345
 def admin(name):
     while True:
         welcome(name)
@@ -71,6 +74,7 @@ def admin(name):
                     admin(name)
 
                 elif funcadmv == 3:
+                    print("---------------------------------------------")
                     while True:
                         with open('tutorprof.txt', 'r') as ttrinc:
                             tinco = ttrinc.readlines()
@@ -319,10 +323,12 @@ def op2(name):
 
 
 def op3(name):
+    print("-----------------------------------------")
     with open("payment.txt", "r") as r:
         for line in r:
             item = line.strip().split(",")
-            print("Payment from", item[0])
+            print("Payment from", item[0] + ":" + item[1])
+    print("-----------------------------------------")
     op = input("Enter name you want to generate receopt:")
     with open("payment.txt", "r") as r:
         for line in r:
@@ -584,13 +590,13 @@ def tutor(name):
     tutor(name)
 
 
-# Amir,amir345,student
-# Aik,aik345,student
+# Muhammad Amir Yong,amir345
+# Tan Aik Bah,aik345
 def student(name):
     while True:
         welcome(name)
         codex = ""
-        codex = check_int(codex,"1. View schedule\n2. Send change subject enrollment request\n3. Delete change subject enrollment request\n4. View payment due\n5. Update profile\nPlease enter the option you want by using number:")
+        codex = check_int(codex,"1. View schedule\n2. Send change subject enrollment request\n3. Delete change subject enrollment request\n4. View payment due\n5. Update profile\n6. Log out\nPlease enter the option you want by using number:")
         if codex == 1:
             print("Schedule:")
             # print table function
@@ -600,12 +606,14 @@ def student(name):
                     for line in lines:
                         item = line.strip().split(",")
                         if subject in line:
-                            print(item[0], ", ", item[2])
+                            if list[-1] in line:
+                                print(item[0], ", ", item[2], "Level: " + item[-1] )
 
             # find owener's subject
             with open("rstudent.txt", "r") as student:
                 for line in student:
                     if name in line:
+                        list = line.strip().split(";")
                         if "Chinese" in line:
                             print_schedule("Chinese")
                         if "English" in line:
@@ -622,7 +630,8 @@ def student(name):
 
         if codex == 2:
             with open("request.txt", "a") as rq:
-                request = name + ",pending\n"
+                requestsub = input("Please tell the receptionist that you want to change which subject to which subject:")
+                request = name + ";" + requestsub + "\n"
                 rq.write(request)
             rq.close()
             print("\nRequest sent\n")
@@ -679,106 +688,158 @@ def student(name):
                                 fee = fee + int(item[1])
                 return fee
 
-            with open("rstudent.txt","r") as pay:
-                for line in pay:
-                    if name in line:
-                        item = line.strip().split(";")
-                        print(item[0], ": ", item[-2])
-                        status = item[-2]
-
             #show all paid status
             with open("rstudent.txt","r") as read:
                 for line in read:
                     if name in line:
                         item = line.strip().split(";")
-                        print(item[0] , ": " , item[-1])
+                        print("---------------------------------------\n" + item[0] + ": " , item[-2])
                         status = item[-2]
                         amountdue = int(item[-1])
-            read.close()
 
             if status == "paid":
-                print("No payment due")
+                print("-----------------------------------\nNo payment due\n-----------------------------------")
 
-            elif status == "unpaid":
-                if amountdue == 0:
-                    amountdue = calculate(detect(name))
-                    #print amount due
-                    print("Amount due:", amountdue)
-                    amount = int(input("Please enter the amount you want to pay:"))
+            elif status == "unpaid" and amountdue == 0:
+                amountdue = calculate(detect(name))
+                # print amount due
+                print("Amount due:", amountdue)
+                amount = int(input("Please enter the amount you want to pay:"))
+                if amount <= amountdue:
                     amountdue = amountdue - amount
+                    #update payment status or amount due in rstudent
                     with open("rstudent.txt", "r") as read:
                         lines = read.readlines()
                         for line in lines:
                             if name in line:
                                 data = line
-                                data = "\n" + data.replace("0",str(amountdue))
+                                data = data.replace("0",str(amountdue))
                     with open("rstudent.txt", "w") as rstu:
                         for line in lines:
                             if name in line:
-                                pass
+                                rstu.write(data)
                             else:
                                 rstu.write(line)
-                        rstu.write(data)
 
+                    # send a payment record to receptionist
+                    with open("payment.txt", "a") as pay:
+                        payrecord = name + "," + str(amount) + "," + str(date.today()) + "\n"
+                        pay.write(payrecord)
 
-                elif amountdue > 0 and status == "unpaid":
-                    amount = int(input("Please enter the amount you want to pay:"))
+                else:
+                    print("---------------------------------------\nPlease don't overpay.")
+
+                #change status to paid if amountdue is 0
+                if amountdue == 0:
+                    with open("rstudent.txt", "r") as read:
+                        lines = read.readlines()
+                        for line in lines:
+                            if name in line:
+                                data = line
+                                data = data.replace("unpaid", "paid")
+                    with open("rstudent.txt", "w") as rstu:
+                        for line in lines:
+                            if name in line:
+                                rstu.write(data)
+                            else:
+                                rstu.write(line)
+
+            elif amountdue > 0 and status == "unpaid":
+                # print amount due
+                print("Amount due:", amountdue)
+                amount = int(input("Please enter the amount you want to pay:"))
+
+                if amount <= amountdue:
                     amountdue = amountdue - amount
-                    if amountdue == 0:
 
+                    # update amount due in rstudent
+                    with open("rstudent.txt", "r") as read:
+                        lines = read.readlines()
+                        for line in lines:
+                            if name in line:
+                                item = line.strip().split(";")
+                                data = line
+                                data = data.replace(item[-1], str(amountdue))
+                    with open("rstudent.txt", "w") as rstu:
+                        for line in lines:
+                            if name in line:
+                                rstu.write(data)
+                            else:
+                                rstu.write(line)
+
+                    if amountdue == 0:
+                        #update payment status in rstudent
                         with open("rstudent.txt", "r") as read:
                             lines = read.readlines()
                             for line in lines:
                                 if name in line:
                                     data = line
-                                    data = "\n" + data.replace("unpaid", "paid")
+                                    data = data.replace("unpaid", "paid")
                         with open("rstudent.txt", "w") as rstu:
                             for line in lines:
                                 if name in line:
+                                    rstu.write(data)
                                     pass
                                 else:
                                     rstu.write(line)
-                            rstu.write(data)
 
-            print("\n")
+                    # send a payment record to receptionist
+                    with open("payment.txt", "a") as pay:
+                        payrecord = name + "," + str(amount) + "," + str(date.today()) + "\n"
+                        pay.write(payrecord)
+                else:
+                    print("---------------------------------------\nPlease don't overpay.")
 
         if codex == 5:
+            #functions to replace item
+            def item_replace(ori,modi):
+
+                with open("rstudent.txt", "r") as file:
+                    data = file.read()
+                    data = data.replace(ori, modi)
+                # Opening our text file in read only mode using the open() function
+                # Writing the replaced data in our text file
+                with open("rstudent.txt", "w") as f:
+                    f.write(data)
+                    print("Replace text(", ori, "to ", modi, ")")
+
             # print table
             print("\n\n")
-            with open("studentprof.txt", "r") as mir:
+            with open("rstudent.txt", "r") as mir:
                 lines = mir.readlines()
                 for line in lines:
-                    if line.find(name) == 0:
-                        try:
-                            item = line.strip().split("-")
-                            print("Name:", item[0], "\nIC/Passport number:", item[1], "\nEmail:", item[2],
-                                  "\nPhone number:", item[3],
-                                  "\nAddress:", item[4])
-                        except:
-                            pass
+                    try:
+                        item = line.strip().split(";")
+                    except:
+                        pass
+
+                    if name == item[0]:
+
+                        print("Profile:\nName:", item[0], "\nIC/Passport number:", item[1], "\nEmail:", item[2],
+                              "\nPhone number:", item[3],
+                              "\nAddress:", item[4])
 
                         # choice make
                         chc = input("Do you really want to make change?(yes/no)")
                         if chc == "no":
                             break
                         if chc == "yes":
-                            with open("studentprof.txt", "w") as miw:
-                                for line in lines:
-                                    if name in line:
-                                        new_prof = input("Name:") + "," + input(
-                                            "IC/Passport number:") + "," + input(
-                                            "Email:") + "," + input("Phone number:") + "," + input("Address:") + "\n"
-                                        miw.write(new_prof)
-                                    else:
-                                        miw.write(line)
+                            while True:
+                                ori = input("Please enter the data you want to change:")
+                                modi = input("Please enter data you want to change to:")
+
+                                item_replace(ori,modi)
+
+                                cont = input("Do you wish to continue modify?(yes/no)").lower()
+                                if cont == "no":
+                                    break
+                            break
 
 
-                            cont = input("Do you wish to continue modify?(yes/no)").lower()
-                            if cont == "no":
-                                break
-                mir.close()
-            print("\n")
+        if codex == 6:
+            break
 
+    login()
 
 
 
