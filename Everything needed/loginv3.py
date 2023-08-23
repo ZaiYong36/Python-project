@@ -270,9 +270,9 @@ def op1(name):
         stu_in = username + ";" + input("Enter student IC :") + ";" + input(
             "Enter student email address :") + ";" + input("Enter student contact number :") + ";" + input(
             "Enter student address :") + ";" + input("Enter student level :") + ";" + input(
-            "Enter student subject 1 (type none1 if no subject):") + ";" + input(
-            "Enter student subject 2 (type none2 if no subject):") + ";" + input(
-            "Enter student subject 3 (type none3 if no subject):") + ";" + input("Enter month of enrollment :") + ";unpaid;0\n"
+            "Enter student subject 1 (type None1 if no subject):").capitalize() + ";" + input(
+            "Enter student subject 2 (type None2 if no subject):").capitalize() + ";" + input(
+            "Enter student subject 3 (type None3 if no subject):").capitalize() + ";" + input("Enter month of enrollment :") + ";unpaid;0\n"
         r.write(stu_in)
     r.close()
     passw = input("Please enter password for account creation:")
