@@ -1,0 +1,546 @@
+Function tutor(name):
+    Function check_int(variable,question)
+        try:
+            prompt user for variable by using question
+            change variable data type to integer
+            return variable
+        except:
+            Display "---------------------------------------"
+	        Display "            Error input                "
+	        Display "---------------------------------------"
+	EndFunction
+
+	Function welcome(name):
+	    Display "---------------------------------------"
+	    Display "            Welcome name               "
+	    Display "---------------------------------------"
+	EndFunciton
+
+	Open file tutorprof.txt in read mode:
+	    Loop through every line in the file
+	        IF found name in line
+	            remove additional space in line
+                split line with seperator "," then put all elements into a list called item
+	            Set sub as subject from item list
+	        ENDIF
+	    ENDLOOP
+	Close file tutorprof.txt
+
+	Call welcome(name)
+	Display "1. Add class information"
+	Display "2. Update or delete class information"
+	Display "3. View list of student according to subject"
+	Display "4. Update profile"
+	Display "5. Log out"
+
+	Declare new variable codex
+	Prompt user for codex as their choice
+	Read codex
+	check_int(codex,"Please choose option by using number:") returning codex
+	read codex
+
+	IF (codex=1) THEN
+	    Call tutorop1(name)
+
+    ELSE IF (codex=2) THEN
+        Call tutorop2(sub)
+
+    ELSE IF (codex=3) THEN
+        Call tutorop3(sub)
+
+    ELSE IF (codex=4) THEN
+        Call tutorop4(name)
+
+    ELSE IF (codex=5) THEN
+        Call login()
+    EndIF
+
+    Call tutor(name)
+EndFunction
+
+Function tutorop1(name)
+	Open file tutorprof.txt in read mode
+        Loop through every line in this file
+            IF name found in line THEN
+                remove additional space in line
+                split line with seperator "," then put all elements into a list called item
+                    Dowhile True(infinite loop)
+                        Display "Please enter following information:"
+                        Open file classschedule.txt in append mode
+                            prompt user for subject_name,charge, class_schedule and level
+                            Set new_sub = f"{subject_name},{charge},{class_schedule},{level}"
+                            Append new_sub into classschedule.txt file
+                        Close file classschedule.txt
+
+                        Display "Do you wish to continue modify?(yes/no)"
+                        Prompt user for cont
+                        Read cont
+                        IF (cont is "no") THEN
+                            Break infinite loop
+                    ENDDO
+
+            ENDIF
+        EndLOOP
+    Close file tutorprof.txt
+EndFunction
+
+Function tutorop2(sub)
+    Display "----------------------------------------"
+    Display "1.Update class information"
+    Display "2.Delete class information"
+    Prompt user for code
+    Read code
+    check_int(code,"Please choose the operation by using number:") returning code
+    Set code as returned code
+    IF (code = 1) THEN
+        Dowhile True(infinite loop)
+            Display "Schedule and level:"
+            Open file "classschedule.txt" in read mode
+            Loop through every line in the file
+                remove additional space in line
+                split line with seperator "," then put all elements into a list called item
+                IF sub found in line THEN
+                    Display class schedule and level in item list
+                ENDIF
+            ENDLOOP
+
+            Declare timi as the time you want to replace and new_timi as the new time data
+            Prompt user for timi and new_timi
+            read timi and new_timi
+            Open file classschedule.txt in read mode
+                Set data as content of file
+                Replace timi in data with new timi
+            Close file classschedule.txt
+
+            Open file classschedule.txt in write mode
+                write data into file
+                Display "Replaced time successfully!"
+
+            Display "Do you wish to continue modify?(yes/no)"
+            Prompt user for cont
+            Read cont
+            IF (cont is "no") THEN
+                Break infinite loop
+        ENDLOOP
+
+    IF (code = 2) THEN
+        Dowhile True(infinite loop)
+            Display "Schedule and level:"
+            Open file classschedule.txt in read mode
+                Loop through every line in the file
+                    IF found sub in line THEN
+                        remove additional space in line
+                        split line with seperator "," then put all elements into a list called item
+                        Display class schedule and level in item list
+                    ENDIF
+                ENDLOOP
+            Close file classschedule.txt
+
+            Declare timi as the schedule time user want to delete
+            Prompt user for timi
+            Read timi
+            Open file classschedule.txt in read mode
+                Set lines as the content of file
+                Open file classschedule.txt in write mode
+                    Loop through each line in lines
+                        IF timi not found in line THEN
+                            write that line into the file
+                        ENDIF
+                    ENDLOOP
+                Close file classschedule.txt
+            Close file classschedule.txt
+            Display "Deleted schedule successfully!"
+
+            Display "Do you wish to continue modify?(yes/no)"
+            Prompt user for cont
+            Read cont
+            IF (cont is "no") THEN
+                Break infinite loop
+ENDFUNCTION
+
+   IF (code=3) THEN
+        Display "Students:"
+        Open file rstudent.txt in read mode
+            Loop through every line in the file
+                IF found sub in line THEN
+                    remove additional space in line
+                    split line with seperator "," then put all elements into a list called item
+                    Display item[0]
+                ENDIF
+            ENDLOOP
+        Close file rstudent.txt
+ENDFUNCTION
+
+   IF (code=4) THEN
+        Open file tutorprof.txt in read mode
+            Set lines as the content of file
+            Loop through every line in lines
+                IF name found in line THEN
+                    remove additional space in line
+                    split line with seperator "," then put all elements into a list called item
+                    Display "Profile:"
+                    Display the all user data in item list such as name,gender,data of birth,contact number,subject and level
+
+                    Declare chc as user choice to continue
+                    Prompt user for chc
+                    Read chc
+                    IF (chc is "no") THEN
+                        Break loop
+                    IF (chc is "yes") THEN
+                        Open file tutorprof.txt in write mode
+                            Loop through every line in lines
+                                IF name not found in line THEN
+                                    Write line into file
+                                ELSE IF name found in line THEN
+                                    Declare new_prof as user's profile that contain name, gender, date of birth, email address, phone number, subject and level
+                                    Prompt user for new_prof
+                                    Write new_prof into file
+                                ENDIF
+                    ENDIF
+                        Close file tutorprof.txt
+                ENDIF
+            Display "Do you wish to continue modify?(yes/no)"
+            Prompt user for cont
+            Read cont
+            IF (cont is "no") THEN
+                Break infinite loop
+            ENDLOOP
+        Close file tutorprof.txt
+ENDFUNCTION
+
+
+
+
+
+
+Function student(name):
+    Function check_int(variable,question)
+        try:
+            prompt user for variable by using question
+            change variable data type to integer
+            return variable
+        except:
+            Display "---------------------------------------"
+	        Display "            Error input                "
+	        Display "---------------------------------------"
+	EndFunction
+
+	Function welcome(name):
+	    Display "---------------------------------------"
+	    Display "            Welcome name               "
+	    Display "---------------------------------------"
+	EndFunciton
+
+	Open file rstudent.txt in read mode:
+	    Loop through every line in the file
+	        IF found name in line
+	            remove additional space in line
+                split line with seperator "," then put all elements into a list called item
+	            Set level as level information from item list
+	        ENDIF
+	    ENDLOOP
+	Close file rstudent.txt
+
+	Call welcome(name)
+    Display "1. View schedule"
+	Display "2. Send change subject enrollment request"
+	Display "3. Delete change subject enrollment request"
+	Display "4. View payment due"
+	Display "5. Update profile"
+	Display "6. Log out"
+	Prompt user for codex as their choice
+	Read codex
+	check_int(codex,"Please choose option by using number:") returning codex
+	read codex
+
+	IF (codex=1) THEN
+	    Call studentop1(name,level)
+
+    ELSE IF (codex=2) THEN
+        Call studentop2(sub)
+
+    ELSE IF (codex=3) THEN
+        Call studentop3(sub)
+
+    ELSE IF (codex=4) THEN
+        Call studentop4(name)
+
+    ELSE IF (codex=5) THEN
+        Call studentop5(name)
+
+    ELSE IF (codex=6) THEN
+        Call login()
+
+    EndIF
+
+    Call student(name)
+EndFunction
+
+studentop1(name,level)
+    Display "Schedule"
+    Function print_schedule(subject,level)
+        Open file classschedule.txt in read mode
+            Loop through each line in the file
+                IF found subject in line THEN
+                    remove additional space in line
+                    split line with seperator "," then put all elements into a list called item
+                    Display schedule_time and level with their index in item list
+                ENDIF
+            ENDLOOP
+        Close file classschedule.txt
+    ENDFUNCTION
+
+    Open file rstudent.txt in read mode
+        Loop through every line in the file
+        IF found name in line THEN
+            IF "Chinese" found in line THEN
+                Call print_schedule("Chinese", level)
+            IF "English" found in line THEN
+                Call print_schedule("English", level)
+            IF "Malay" found in line THEN
+                Call print_schedule("Malay", level)
+            ENDIF
+        ENDIF
+    Close file rstudent.txt
+ENDFUNCTION
+
+Function studentop2(name)
+    Open file request.txt in append mode
+        Declare request as user request and requestsub as subject that user request to change to
+        Prompt user for requestsub
+        Read requestsub
+        Set request = name + ";"  + requestsub
+        Append request into the file
+    Close request.txt
+    Display "Request sent"
+ENDFUNCTION
+
+Function studentop3(name)
+    Open file request.txt in read mode
+    Set lines as content of file
+        Open file request.txt in write mode
+            Loop through every line in lines
+                IF name not found in line
+                    Write line into the file
+        Close file request.txt
+    Close file request.txt
+
+    Display "Request deleted"
+ENDFUNCTION
+
+Function studentop4(name)
+    Function detect(name)
+        Declare an empty list as list
+        Open file rstudent.txt in read mode
+            Loop through every line in the file
+                IF found name in line
+                    IF "Chinese" found in line THEN
+                        Append "Chinese" to list
+                    IF "English" found in line THEN
+                        Append "English" to list
+                    IF "Malay" found in line THEN
+                        Append "Malay" to list
+                    ENDIF
+                ENDIF
+            ENDLOOP
+        Close file rstudent.txt
+        Return list
+    ENDFUNCTION
+
+    Function calculate(list)
+        Open file rstudent.txt in read mode
+	    Loop through every line in the file
+	        IF found name in line
+	            remove additional space in line
+                split line with seperator "," then put all elements into a list called item
+	            Set level as level information from item list
+	        ENDIF
+	    ENDLOOP
+
+        Set fee as 0
+        Loop every item in list
+            Open file classschedule.txt in read mode
+                Loop through every line in the file
+                    IF found sub in line AND level == level information in item list
+                        Calculate fee = fee + fee in item list(integer form)
+                    ENDIF
+                ENDLOOP
+            Close file classschedule.txt
+        ENDLOOP
+
+        Return fee
+    ENDFUNCTION
+
+    Open file rstudent.txt in read mode
+        Loop through every line in the file
+            IF found name in line THEN
+                remove additional space in line
+                split line with seperator "," then put all elements into a list called item
+                Display name and payment status in item list
+                Set status and amountdue as the status and amountdue in item list
+            ENDIF
+        ENDLOOP
+    Close file rstudent.txt
+
+    IF (status="paid") THEN
+        Display "No payment due"
+
+    ELSE IF (status="paid" AND amountdue=0) THEN
+        Set amountdue = Call calculate(Call detect(name))
+        Display amount due
+        Declare amount as the amount user wants to pay
+        Prompt user for amount
+        Read amount
+        Change amount into integer
+
+        IF (amountdue <= amountdue) THEN
+            Caldulate amountdue = amountdue - amount
+            Open file rstudent.txt in read mode
+                Set line as the content of file
+                Loop through everyline in the file
+                    IF found name in line THEN
+                        Set data as line
+                        Replace 0 in the line with amountdue in data
+                    ENDIF
+                ENDLOOP
+            Close file rstudent.txt
+            Open file rstudent.txt in write mode
+                Loop through everyline in line
+                    IF found name in line THEN
+                        Write data into the file
+                    ELSE
+                        Write line into the file
+                    ENDIF
+                ENDLOOP
+            Close file rstudent.txt
+            Open file payment.txt in append mode
+                Set payrecord = name + "," + amount + "," + today's date
+                Append payrecord into the file
+            Close file payment.txt
+
+        ELSE
+            Display "Please don't overpay"
+
+        IF (amountdue=0) THEN
+            Open file rstudent.txt in read mode
+                Set line as the content of file
+                Loop through everyline in the file
+                    IF found name in line THEN
+                        Set data as line
+                        Replace "unpaid" in the line with "paid" in data
+                    ENDIF
+                ENDLOOP
+            Close file rstudent.txt
+            Open file rstudent.txt in write mode
+                Loop through everyline in line
+                    IF found name in line THEN
+                        Write data into the file
+                    ELSE
+                        Write line into the file
+                    ENDIF
+                ENDLOOP
+            Close file rstudent.txt
+        ENDIF
+
+    ELSE IF (amountdue>0 AND status="unpaid") THEN
+        Display amountdue
+        Declare amount as the amount user wants to pay
+        Prompt user for amount
+        Read amount
+        Change amount into integer
+
+        IF (amountdue <= amountdue) THEN
+            Open file rstudent.txt in read mode
+                Set line as the content of file
+                Loop through everyline in the file
+                    IF found name in line THEN
+                        remove additional space in line
+                        split line with seperator "," then put all elements into a list called item
+                        Set data as line
+                        Replace amountdue in the line with amountdue in item list which is item[-1]  in data
+                    ENDIF
+                ENDLOOP
+            Close file rstudent.txt
+            Open file rstudent.txt in write mode
+                Loop through everyline in line
+                    IF found name in line THEN
+                        Write data into the file
+                    ELSE
+                        Write line into the file
+                    ENDIF
+                ENDLOOP
+            Close file rstudent.txt
+
+            IF (amountdue=0) THEN
+                Open file rstudent.txt in read mode
+                    Set line as the content of file
+                    Loop through everyline in line
+                        IF found name in line THEN
+                            Set data as line
+                            Replace "unpaid" in the line with "paid" in data
+                        ENDIF
+                    ENDLOOP
+                Close file rstudent.txt
+                Open file rstudent.txt in write mode
+                    Loop through everyline in line
+                        IF found name in line THEN
+                            Write data into the file
+                        ELSE
+                            Write line into the file
+                        ENDIF
+                    ENDLOOP
+                Close file rstudent.txt
+            ENDIF
+
+            Open file payment.txt in append mode
+                Set payrecord = name + "," + amount + "," + today's date
+                Append payrecord into the file
+            Close file payment.txt
+        ELSE
+            Display "Please don't overpay"
+        ENDIF
+    ENDIF
+ENDFUNCTION
+
+Function sutdentop5(name)
+    Function item_replace(ori,modi)
+        Open file rstudent.txt in read mode
+            Set data as the content of file
+            Replace ori in data with modi
+        Close file rstudent.txt
+        Open file rstudent.txt in write mode
+            Write data into the file
+            Display "Replace text from " + ori " to " + modi
+        Close file rstudent.txt
+    ENDFUNCTION
+
+    Open file rstudent.txt in read mode
+        Set lines as the content of file
+        Loop through every line in lines
+            remove additional space in line
+            split line with seperator "," then put all elements into a list called item
+            IF (name=item[0] which is name in item list) THEN
+                Display all information of the name owners such as Name, IC/Passport number, email, Phone number and Address that in item list
+
+                Declare chc as user choice to make changes to profile
+                Prompt user for chc
+                Read chc
+                IF (chc is "no") THEN
+                    Break loop
+                IF (chc is "yes") THEN
+                    Dowhile True
+                        Declare ori as original information and modi as modified information
+                        Prompt user for ori and modi
+                        Read ori and modi
+                        Call item_replace(ori,modi)
+
+                        Display "Do you wish to continue modify?(yes/no)"
+                        Prompt user for cont
+                        Read cont
+                        IF (cont is "no") THEN
+                            Break infinite loop
+                    ENDLOOP
+                ENDIF
+        ENDLOOP
+    Close file rstudent.txt
+ENDFUNCTION
