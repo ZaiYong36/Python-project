@@ -383,7 +383,7 @@ def op4(name):
     # remove student account
     removeacc(op)
 
-    c = input("Back to receptionist panel ?(yes/no):").lower
+    c = input("Back to receptionist panel ?(yes/no):").lower()
     if c == "yes":
         receptionist(name)
     else:
