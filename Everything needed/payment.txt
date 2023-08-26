@@ -1,3 +1,9 @@
 Muhammed Akau,700,2023-08-23
 Pang Zai Yong,500,2023-08-23
 Pang Zai Yong,200,2023-08-23
+Pang Zai Jei,500,2023-08-25
+Pang Zai Jei,300,2023-08-25
+Pang Zai Jei,800,2023-08-25
+Pang Zai Jei,500,2023-08-25
+Pang Zai Jei,300,2023-08-25
+Muhammad Amir Yong,500,2023-08-26
