@@ -3,8 +3,9 @@ Chinese,100,mon 6.00am-7.00am,1
 Chinese,200,wed 17.00pm-18.00pm,3
 Malay,100,mon 11.00am-12.00pm,3
 English,100,tue 5.00pm-6.00pm,1
-English,200,fri 2.00pm-3.00pm,1
-Malay,300,thu 10.00am-12.00pm,3
-Chinese,300,fri 6.00pm-7.00pm,2
+English,200,fri 2.00pm-3.00pm,4
+Malay,300,thu 10.00am-12.00pm,4
+Chinese,300,fri 6.00pm-7.00pm,4
 Malay,100,wed 7.00pm-8.00pm,2
 Malay,100,fri 6.00pm-7.00pm,1
+Chinese,500,mon 12.00pm-1.00pm,5
