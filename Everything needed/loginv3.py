@@ -448,11 +448,12 @@ def op6(name):
 
 
 
+
 #tutor("Lee", "lee345"),
     #tutor("Leong", "leong345")
 def tutor(name):
     welcome(name)
-    print("1. Add class information\n2. Update or delete class information\n3. View list of student according to subject\n4. Update profile")
+    print("1. Add class information\n2. Update or delete class information\n3. View list of student according to subject\n4. Update profile\n5. Log out")
     codex = ""
     codex = check_int(codex,"Please choose option by using number:")
     #record subject for tutor
@@ -465,15 +466,17 @@ def tutor(name):
 
     if codex == 1:
         tutorop1(name)
-    if codex == 2:
+    elif codex == 2:
         tutorop2(sub)
 
-    if codex == 3:
+    elif codex == 3:
         tutorop3(sub)
 
-    if codex == 4:
+    elif codex == 4:
         tutorop4(name)
 
+    elif codex == 5:
+        login()
 
     tutor(name)
 
@@ -542,7 +545,7 @@ def tutorop2(sub):
                     if sub in line:
                         print(item[-2] + "," + item[-1])
 
-            # replace  time
+            # delete  time
             timi = input("Please enter the schedule you want to delete:")
             with open("classschedule.txt", "r") as file:
                 lines = file.readlines()
@@ -613,19 +616,19 @@ def student(name):
     if codex == 1:
         studentop1(name,level)
 
-    if codex == 2:
+    elif codex == 2:
         studentop2(name)
 
-    if codex == 3:
+    elif codex == 3:
         studentop3(name)
 
-    if codex == 4:
+    elif codex == 4:
         studentop4(name)
 
-    if codex == 5:
+    elif codex == 5:
         studentop5(name)
 
-    if codex == 6:
+    elif codex == 6:
         login()
 
     student(name)
@@ -650,9 +653,9 @@ def studentop1(name,level):
                 list = line.strip().split(";")
                 if "Chinese" in line:
                     print_schedule("Chinese", level)
-                if "English" in line:
+                elif "English" in line:
                     print_schedule("English", level)
-                if "Malay" in line:
+                elif "Malay" in line:
                     print_schedule("Malay", level)
 
     input("Press any key to continue....")
@@ -696,24 +699,28 @@ def studentop4(name):
                     if "Chinese" in line:
                         list.append("Chinese")
 
-                    elif "English" in line:
+                    if "English" in line:
                         list.append("English")
 
-                    elif "Malay" in line:
+                    if "Malay" in line:
                         list.append("Malay")
         return list
 
     # function to add up all fee
     def calculate(list):
+        with open("rstudent.txt", "r") as rstu:
+            for line in rstu:
+                item = line.strip().split(";")
+                if name == item[0]:
+                    level = item[5]
         fee = int(0)
         for sub in list:
             with open("classschedule.txt", 'r') as fr:
                 lines = fr.readlines()
                 for line in lines:
-
+                    item = line.strip().split(",")
                     # if no match found, it will return -1
-                    if line.find(sub) == 0:
-                        item = line.strip().split(",")
+                    if sub in line and level == item[-1] :
                         fee = fee + int(item[1])
         return fee
 
@@ -808,7 +815,6 @@ def studentop4(name):
                     for line in lines:
                         if name in line:
                             rstu.write(data)
-                            pass
                         else:
                             rstu.write(line)
 
@@ -890,6 +896,8 @@ def login():
     print("Please rerun this program to get more attempts :)")
     exit()
 login()
+
+
 
 
 
