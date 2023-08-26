@@ -1,5 +1,5 @@
 Pang Zai Yong;154369751324;pangzaiyong@gmail.com;01154769823;36,jalan bk 8/9,bandar kinrara 8,puchong,selangor;3;Chinese;English;Malay;january;paid;0
-Muhammed Akau;012034059234;akau@gmail.com;0122345682;34,jalan ran,Subang,selangor;2;Chinese;English;none3;august;paid;0
-Muhammad Amir Yong;124668587598;amir@gmail.com;300126547896;34,jalan bk 5/2,bandar kinrara 5,puchong,selangor;5;Chinese;Malay;none3;january;paid;300
+Muhammed Akau;012034059234;akau@gmail.com;0122345682;34,jalan ran,Subang,selangor;2;Chinese;English;none3;august;unpaid;0
+Muhammad Amir Yong;124668587598;amir@gmail.com;300126547896;34,jalan bk 5/2,bandar kinrara 5,puchong,selangor;5;Chinese;Malay;none3;january;paid;0
 Tan Aik Bah;112341821123;aik@gmail.com;1142941123;36,jalan ran,Petaling,selangor;1;Chinese;English;none3;august;paid;1
-Pang Zai Jei;01030410341;pang@gmail.com;01039419340;43, jalan sabang,Subang,Selangor;0;Chinese;English;Malay;january;paid;0
+Pang Zai Jei;01030410341;pang@gmail.com;01039419340;43, jalan sabang,Subang,Selangor;4;Chinese;English;Malay;january;paid;0
