@@ -229,7 +229,7 @@ def admin(name):
                                 nadmgdr = input('Please enter your gender :')
                                 nadmdob = input('Please enter your date of birth with the following format(01 January 2000) :')
                                 nadmem = input('Please enter your email :')
-                                nadmphnum = input('Please enter your phone number')
+                                nadmphnum = input('Please enter your phone number :')
                                 nwadm = f"{name},{nadmgdr},{nadmdob},{nadmem},{nadmphnum}"
                                 altadmpf.write(nwadm+'\n')
                             else:
