@@ -235,7 +235,7 @@ def admin(name):
                                 altadmpf.write(nwadm+'\n')
                             else:
                                 altadmpf.write(line)
-                calterpf = input('Would you like to continue making changes in admin profile ?\nYes or no')
+                calterpf = input('Would you like to continue making changes in admin profile ?\nYes or no :')
                 if calterpf.lower() == 'no':
                     break
             admin(name)
