@@ -185,7 +185,7 @@ def admin(name):
                             admin(name)
                 if funcadmd == 2:
                     while True:
-                        dtrecp = input('Please enter the name of the receptionist to be deleted')
+                        dtrecp = input('Please enter the name of the receptionist to be deleted :')
                         with open('Receptionist.txt', 'r') as radrecp:
                             rrline = radrecp.readlines()
                             with open('Receptionist.txt', 'w') as dltrec:
