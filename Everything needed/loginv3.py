@@ -590,7 +590,7 @@ def tutorop4(name):
                             if line.find(name) == -1:
                                 miw.write(line)
                             elif name in line:
-                                new_prof = input("Name:") + "," + input("Gender:") + "," + input(
+                                new_prof = name + "," + input("Gender:") + "," + input(
                                     "Date of Birth:") + "," + input("Email address:") + "," + input(
                                     "Phone number:") + "," + input("Subject:") + "," + input("Level:") + "\n"
                                 miw.write(new_prof)
@@ -652,9 +652,9 @@ def studentop1(name,level):
                 list = line.strip().split(";")
                 if "Chinese" in line:
                     print_schedule("Chinese", level)
-                elif "English" in line:
+                if "English" in line:
                     print_schedule("English", level)
-                elif "Malay" in line:
+                if "Malay" in line:
                     print_schedule("Malay", level)
 
     input("Press any key to continue....")
@@ -859,7 +859,7 @@ def studentop5(name):
                     break
                 if chc == "yes":
                     while True:
-                        ori = input("Please enter the data you want to change:")
+                        ori = input("Please enter the data you want to change(Do not change name):")
                         modi = input("Please enter data you want to change to:")
 
                         item_replace(ori, modi)
