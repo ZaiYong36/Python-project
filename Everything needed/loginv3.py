@@ -167,7 +167,7 @@ def admin(name):
 
                 if funcadmd == 1:
                     while True:
-                        dttr = input('Please enter the name of the tutor to be deleted')
+                        dttr = input('Please enter the name of the tutor to be deleted :')
                         with open('tutorprof.txt', 'r') as radttrlvlsject:
                             rtline = radttrlvlsject.readlines()
                             with open('tutorprof.txt', 'w') as dltttr:
