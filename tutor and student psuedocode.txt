@@ -544,3 +544,35 @@ Function sutdentop5(name)
         ENDLOOP
     Close file rstudent.txt
 ENDFUNCTION
+
+Function login()
+    Set count = 3
+    Dowhile (count > 0)
+        Display "-----------------------------------"
+        Display "             Login page            "
+        Display "-----------------------------------"
+        Declare name as username and pw as user password
+        Prompt user for name and pw
+        Read name and pw
+        Open file login.txt in read mode
+            Loop through every line in the file
+                Remove additional space in line
+                Split the line into nm,passw and role with seperator ","
+                IF (name and pw match with nm and passw in line and role = "admin") THEN
+                    Call admin(name)
+                ELSE IF (name and pw match with nm and passw in line and role = "receptionist") THEN
+                    Call receptionist(name)
+                ELSE IF (name and pw match with nm and passw in line and role = "tutor") THEN
+                    Call tutor(name)
+                ELSE IF (name and pw match with nm and passw in line and role = "student") THEN
+                    Call student(name)
+                ENDIF
+
+                Calculate count = count - 1
+                Display "Current attempts left:" + count
+            ENDLOOP
+        Close file login.txt
+    ENDLOOP
+    Display "Please rerun this program to get more attempts :)"
+
+Call login()
