@@ -106,6 +106,7 @@ def admin(name):
                         with open('tutorprof.txt', 'a') as tifo:
                             tname = input('Please register his/her name: ')
                             passw = input('Please enter password for account:')
+                            tgdr = input('Please enter your gender: ')
                             #Data validations
                             while True:
                                 try:
@@ -119,10 +120,10 @@ def admin(name):
                                     break
                                 except:
                                     print("Incorrect data input.")
-
+                            tdob = input('Please enter your date of birth: (01 January 2000)')
                             tmail = input('Please register your email: ')
                             sject = input('Please register your subject: ').lower()
-                            tfo = tname+','+str(tphnum) + ','+tmail + ',' + sject + ',' + str(sjlvl) + '\n'
+                            tfo = tname+','+tgdr +','+ tdob+ ','+tmail + ','+str(tphnum) +','+ sject + ',' + str(sjlvl) + '\n'
                             tifo.write(tfo)
                             tifo.close()
 
@@ -139,6 +140,8 @@ def admin(name):
                         with open('recpprof.txt', 'a') as rifo:
                             rname = input('Please register your name: ')
                             passw = input('Please enter password for account:')
+                            rgdr = input('Please enter a gender: ')
+                            rdob = input('Please enter the date of birth:(01 January 2000) ')
                             while True:
                                 try:
                                     rphnum = int(input('Please register your phone number: '))
@@ -146,7 +149,7 @@ def admin(name):
                                 except:
                                     print("Incorrect data input.")
                             rmail = input('Please register your email: ')
-                            rfo = rname+','+str(rphnum) + ','+rmail+'\n'
+                            rfo = rname+','+rgdr+','+rdob+','+rmail + ','+str(rphnum)+'\n'
                             rifo.write(rfo)
                             rifo.close()
 
