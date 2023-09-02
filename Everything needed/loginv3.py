@@ -211,8 +211,8 @@ def admin(name):
                         if name in line:
                             try:
                                 item = line.strip().split(",")
-                                print("----------------------------------------------\nName:", item[0], "\nDate of Birth:", item[1], "\nEmail:", item[2],
-                                      "\nPhone number:", item[3])
+                                print("----------------------------------------------\nName:", item[0], "\nGender: ", item[1], "\nDate of Birth:", item[2], "\nEmail:", item[3],
+                                      "\nPhone number:", item[4])
                             except:
                                 pass
 
